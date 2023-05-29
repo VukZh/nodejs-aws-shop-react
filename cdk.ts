@@ -28,7 +28,7 @@ bucket.grantRead(originAccessIdentity);
 
 const cloudFront = new cf.CloudFrontWebDistribution(
   stack,
-  "WebAppDistribution",
+  "WebAppDistribution2",
   {
     originConfigs: [
       {
