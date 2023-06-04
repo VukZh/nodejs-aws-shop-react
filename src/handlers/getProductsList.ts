@@ -1,8 +1,8 @@
 import { buildResponse } from "~/handlers/helpers";
-import { products as PRODUCTS } from "~/mocks/data";
+import { productsLambdaTest as PRODUCTS } from "~/mocks/data";
 import { ProductsType } from "~/handlers/types";
 
-export const getProductsList = async () => {
+export const handler = async () => {
   try {
     return buildResponse(200, {
       products: PRODUCTS as ProductsType,
