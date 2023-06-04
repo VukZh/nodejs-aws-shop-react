@@ -3,14 +3,14 @@ import { productsLambdaTest as PRODUCT } from "~/mocks/data";
 import { ProductType } from "~/handlers/types";
 import { APIGatewayEvent, APIGatewayProxyEventPathParameters } from "aws-lambda";
 
-const getProduct = (productId: APIGatewayProxyEventPathParameters) => {
-  const res = PRODUCT.find((product) => product.id == productId.productId);
+const getProduct = (pathParameters: APIGatewayProxyEventPathParameters) => {
+  const res = PRODUCT.find((product) => product.id == pathParameters.productId);
   return res;
 };
-export const handler = async (productId: APIGatewayEvent) => {
+export const handler = async (event: { pathParameters: { productId: string } }) => {
   try {
-    const id = productId.pathParameters || {}
-    const product = getProduct(id);
+    const pathParameters = event.pathParameters || {}
+    const product = getProduct(pathParameters);
     if (product) {
       return buildResponse(200, {
         product: product as ProductType,
