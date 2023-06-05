@@ -20,7 +20,7 @@ describe("getProductsById", () => {
         productId: "10",
       },
     });
-    expect(data.statusCode).toBe(500);
+    expect(data.statusCode).toBe(404);
     expect(JSON.parse(data.body).message).toEqual("Product not found");
   });
 });
