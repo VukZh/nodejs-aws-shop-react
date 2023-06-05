@@ -1,11 +1,10 @@
 import { buildResponse } from "~/handlers/helpers";
 import { productsLambdaTest as PRODUCT } from "~/mocks/data";
 import { ProductType } from "~/handlers/types";
-import { APIGatewayEvent, APIGatewayProxyEventPathParameters } from "aws-lambda";
+import { APIGatewayProxyEventPathParameters } from "aws-lambda";
 
 const getProduct = (pathParameters: APIGatewayProxyEventPathParameters) => {
-  const res = PRODUCT.find((product) => product.id == pathParameters.productId);
-  return res;
+  return PRODUCT.find((product) => product.id == pathParameters.productId);
 };
 export const handler = async (event: { pathParameters: { productId: string } }) => {
   try {
