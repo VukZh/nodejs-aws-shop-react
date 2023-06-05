@@ -17,11 +17,10 @@ export const handler = async (event: {
         product: product as ProductType,
       });
     }
-    return buildResponse(204, {
-      message: "Product not found",
-    });
+    throw "Product not found";
   } catch (error) {
-    return buildResponse(500, {
+    const code = error == "Product not found" ? 404 : 500;
+    return buildResponse(code, {
       message: error as string,
     });
   }
