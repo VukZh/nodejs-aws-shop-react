@@ -26,14 +26,29 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
   const uploadFile = async () => {
     console.log("uploadFile to", url);
 
+    const calcConfig = localStorage.getItem("authorization_token")
+      ? {
+          method: "GET",
+          url,
+          params: {
+            name: encodeURIComponent(file?.name!),
+          },
+          headers: {
+            authorization: `Basic ${localStorage.getItem(
+              "authorization_token"
+            )}`,
+          },
+        }
+      : {
+          method: "GET",
+          url,
+          params: {
+            name: encodeURIComponent(file?.name!),
+          },
+        };
+
     // Get the presigned URL
-    const response = await axios({
-      method: "GET",
-      url,
-      params: {
-        name: encodeURIComponent(file?.name!),
-      },
-    });
+    const response = await axios(calcConfig);
     console.log("File to upload: ", file?.name!);
     console.log("Uploading to: ", response.data.signedUrl);
     const result = await fetch(response.data.signedUrl, {
@@ -52,9 +67,7 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
         <input type="file" onChange={onFileChange} />
       ) : (
         <>
-          <Typography variant="subtitle2">
-            {file.name}
-          </Typography>
+          <Typography variant="subtitle2">{file.name}</Typography>
           <div>
             <button onClick={removeFile}>Remove file</button>
             <button onClick={uploadFile}>Upload file</button>
