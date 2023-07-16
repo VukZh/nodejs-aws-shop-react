@@ -12,6 +12,7 @@ import axios from "axios";
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
+  console.log('err ', error)
   const status = error.response.status;
   if (status === 403) alert("403 You are forbidden")
   if (status === 401) alert("401 You are unauthorized")

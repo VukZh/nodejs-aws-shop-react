@@ -5,10 +5,19 @@ import API_PATHS from "~/constants/apiPaths";
 import { OrderStatus } from "~/constants/order";
 import { Order } from "~/models/Order";
 
+type RespOrder = {
+  statusCode: number;
+  message: string;
+  data: Array<Order>;
+}
 export function useOrders() {
-  return useQuery<Order[], AxiosError>("orders", async () => {
-    const res = await axios.get<Order[]>(`${API_PATHS.order}/order`);
-    return res.data;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return useQuery<ResponseOreder<Order[]>, AxiosError>("orders", async () => {
+    const res = await axios.get<RespOrder>(
+      `${API_PATHS.order}/order`
+    );
+    return res.data.data;
   });
 }
 
@@ -27,6 +36,9 @@ export function useUpdateOrderStatus() {
       return axios.put(`${API_PATHS.order}/order/${id}/status`, data, {
         headers: {
           Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
+          'Access-Control-Allow-Headers': '*',
         },
       });
     }
@@ -38,6 +50,9 @@ export function useSubmitOrder() {
     return axios.put<Omit<Order, "id">>(`${API_PATHS.order}/order`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
       },
     });
   });
@@ -57,6 +72,9 @@ export function useDeleteOrder() {
     axios.delete(`${API_PATHS.order}/order/${id}`, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
       },
     })
   );
