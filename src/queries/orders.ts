@@ -36,9 +36,6 @@ export function useUpdateOrderStatus() {
       return axios.put(`${API_PATHS.order}/order/${id}/status`, data, {
         headers: {
           Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': '*',
-          'Access-Control-Allow-Headers': '*',
         },
       });
     }
@@ -50,9 +47,6 @@ export function useSubmitOrder() {
     return axios.put<Omit<Order, "id">>(`${API_PATHS.order}/order`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Headers': '*',
       },
     });
   });
@@ -72,9 +66,6 @@ export function useDeleteOrder() {
     axios.delete(`${API_PATHS.order}/order/${id}`, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Headers': '*',
       },
     })
   );

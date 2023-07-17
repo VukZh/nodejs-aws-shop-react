@@ -16,10 +16,8 @@ import {
 export default function Orders() {
   const { data } = useOrders();
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const orderArray = data?.order ?? [];
 
+  const orderArray = data?.order ?? [];
   const invalidateOrders = useInvalidateOrders();
   const { mutate: deleteOrder } = useDeleteOrder();
 
@@ -40,10 +38,10 @@ export default function Orders() {
             return (
               <TableRow key={order.id}>
                 <TableCell component="th" scope="row">
-                  {order.delivery?.firstName} {order.delivery?.lastName}
+                  {order.delivery?.address?.city}
                 </TableCell>
                 <TableCell align="right">{order.cart.items?.length}</TableCell>
-                <TableCell align="right">{order.delivery?.address}</TableCell>
+                <TableCell align="right">{order.delivery?.address?.state}-{order.delivery?.address?.street}</TableCell>
                 <TableCell align="right">
                   {order.status}
                   {/*{order.statusHistory[order.statusHistory?.length - 1].status}*/}
@@ -65,5 +63,5 @@ export default function Orders() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }

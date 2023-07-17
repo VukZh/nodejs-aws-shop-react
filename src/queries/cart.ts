@@ -23,9 +23,6 @@ export function useCart() {
       {
         headers: {
           Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': '*',
-          'Access-Control-Allow-Headers': '*',
         },
       }
     );
@@ -52,9 +49,6 @@ export function useUpsertCart() {
     axios.put<CartItem[]>(`${API_PATHS.cart}/profile/cart`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Headers': '*',
       },
     })
   );
@@ -65,9 +59,6 @@ export function useCheckout() {
     axios.post(`${API_PATHS.cart}/profile/cart/checkout`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Headers': '*',
       },
     })
   );
