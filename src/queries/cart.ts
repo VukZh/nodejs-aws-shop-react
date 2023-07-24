@@ -19,7 +19,7 @@ type CartResp = {
 export function useCart() {
   return useQuery<CartItem[], AxiosError>("cart", async () => {
     const res = await axios.get<CartResp>(
-      `${API_PATHS.cart}/profile/cart`,
+      `${API_PATHS.bff}/cart`,
       {
         headers: {
           Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
@@ -46,7 +46,7 @@ export function useInvalidateCart() {
 
 export function useUpsertCart() {
   return useMutation((values: CartItem) =>
-    axios.put<CartItem[]>(`${API_PATHS.cart}/profile/cart`, values, {
+    axios.put<CartItem[]>(`${API_PATHS.bff}/cart`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
       },
@@ -56,7 +56,7 @@ export function useUpsertCart() {
 
 export function useCheckout() {
   return useMutation((values: Omit<Order, "id">) =>
-    axios.post(`${API_PATHS.cart}/profile/cart/checkout`, values, {
+    axios.post(`${API_PATHS.bff}/cart/checkout`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
       },

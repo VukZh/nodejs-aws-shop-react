@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
 import { formatAsPrice } from "~/utils/utils";
 import AddProductToCart from "~/components/AddProductToCart/AddProductToCart";
 import { useAvailableProducts } from "~/queries/products";
@@ -23,11 +24,15 @@ export default function Products() {
           <Card
             sx={{ height: "100%", display: "flex", flexDirection: "column" }}
           >
-            <CardMedia
-              sx={{ pt: "56.25%" }}
-              image={`https://source.unsplash.com/random?sig=${index}`}
-              title="Image title"
-            />
+            {product.img ? (
+              <CardMedia
+                sx={{ pt: "56.25%" }}
+                image={product.img}
+                title="Image title"
+              />
+            ) : (
+              <NoPhotographyIcon style={{alignSelf: "center", justifySelf: "center", height: "148px"}}/>
+            )}
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography gutterBottom variant="h5" component="h2">
                 {product.title}
