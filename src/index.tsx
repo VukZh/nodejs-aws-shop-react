@@ -7,6 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { theme } from "~/theme";
+import axios from "axios";
+
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  console.log('err ', error)
+  const status = error.response.status;
+  if (status === 403) alert("403 You are forbidden")
+  if (status === 401) alert("401 You are unauthorized")
+  return Promise.reject(error);
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +25,9 @@ const queryClient = new QueryClient({
   },
 });
 
+// @ts-ignore
 if (import.meta.env.DEV) {
+// @ts-ignore
   const { worker } = await import("./mocks/browser");
   worker.start({ onUnhandledRequest: "bypass" });
 }
